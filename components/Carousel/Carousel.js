@@ -1,10 +1,58 @@
-/*
 class Carousel {
+    constructor(carousel) {
+        this.carousel = carousel;
+        this.leftBtn = this.carousel.querySelector('.left-button');
+        this.rightBtn = this.carousel.querySelector('.right-button');
+        this.leftBtn.style.userSelect = 'none';
+        this.rightBtn.style.userSelect = 'none';
+        this.images = this.carousel.querySelectorAll('.carousel img');
+        this.counter = 0;
+        this.width = window.innerWidth;
+        this.currentImg = this.images[this.counter];
+        this.currentImg.style.display = 'block';
+        this.leftBtn.addEventListener('click', () => this.backward());
+        this.rightBtn.addEventListener('click', () => this.forward());
+    }
+    forward() {
+        this.images[this.counter].style.display = 'none';
+        this.counter++;
+        if (this.counter > this.images.length - 1) {
+            this.counter = 0;
+        }
+        this.images[this.counter].animate([
+            {
+                transform: `translateX(-${this.width}px)`
+            },
+            {
+                transform: 'translateX(0px)'
+            }
+        ], {
+            duration: 300
+        });
+        this.images[this.counter].style.display = 'block';
+    }
 
+    backward() {
+        this.images[this.counter].style.display = 'none';
+        this.counter--;
+        if (this.counter < 0) {
+            this.counter = this.images.length - 1;
+        }
+        this.images[this.counter].animate([
+            {
+                transform: `translateX(${this.width}px)`
+            },
+            {
+                transform: 'translateX(0px)'
+            }
+        ], {
+            duration: 300
+        });
+        this.images[this.counter].style.display = 'block';
+    }
 }
 
-let carousel = document.querySelector('.carousel');
-*/
+let carousel = new Carousel(document.querySelector('.carousel'));
 
 /* If You've gotten this far, you're on your own! Although we will give you some hints:
     1. You will need to grab a reference to the carousel, and in it grab the left and right buttons
@@ -14,6 +62,8 @@ let carousel = document.querySelector('.carousel');
     5. Think of how you would animate this component. Make the cards slide in and out, or fade. It's up to you!
     6. Have fun!
 */
+
+/* old code - wrote without the class component
 
 let leftButton = document.querySelector('.left-button');
 let rightButton = document.querySelector('.right-button');
@@ -67,3 +117,4 @@ leftButton.addEventListener('click', () => slideShow(1));
 
 rightButton.addEventListener('click', () => slideShow(-1));
 
+*/
