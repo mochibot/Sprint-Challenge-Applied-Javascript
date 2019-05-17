@@ -27,6 +27,7 @@ firstImg.style.display = 'block';
 let counter = 0;
 
 function slideShow(direction) {
+    
     images[counter].style.display = 'none';
     counter += direction;
     if (counter > images.length - 1) {
@@ -34,9 +35,35 @@ function slideShow(direction) {
     } else if (counter < 0) {
         counter = images.length - 1;
     }
+    //added slide-in animation
+    let width = window.innerWidth;
+    if (direction < 0) {
+        images[counter].animate([
+            {
+                transform: `translateX(-${width}px)`
+            },
+            {
+                transform: 'translateX(0px)'
+            }
+        ], {
+            duration: 300
+        })
+    } else {
+        images[counter].animate([
+            {
+                transform: `translateX(${width}px)`
+            },
+            {
+                transform: 'translateX(0px)'
+            }
+        ], {
+            duration: 300
+        })
+    }
     images[counter].style.display = 'block';
 }
 
 leftButton.addEventListener('click', () => slideShow(1));
 
 rightButton.addEventListener('click', () => slideShow(-1));
+
